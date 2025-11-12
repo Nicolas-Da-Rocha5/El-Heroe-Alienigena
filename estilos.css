@@ -142,10 +142,10 @@ body{
 	}
 
 .sidebar-menu li {
-  background: none !important; /* Sin fondo */
+  background: none !important; 
   margin: 10px 0; 
-  border: none !important; /* Sin bordes */
-  box-shadow: none !important; /* Sin box-shadow en estado normal */
+  border: none !important; 
+  box-shadow: none !important; 
 }
 
 .sidebar-menu a {
@@ -1101,7 +1101,7 @@ h2{
   		overflow: hidden;
    		z-index: 1000;
    		box-shadow: 0 30px 80px rgba(41,207,85,0.4);
-    		border: 2px solid #29cf55;
+    	border: 2px solid #29cf55;
 	}
 	
 	.modal-video.active{ 
@@ -1315,7 +1315,7 @@ h2{
 
 /* Alienígenas */
 
-@media screen and (max-width:800px){
+@media screen and (max-width:768px){
 	
 	/* Header y Footer */
 
@@ -1364,7 +1364,7 @@ h2{
 	  .logo {
 		width:100%;
 		height:auto;
-		line-height:25px;
+		letter-spacing:10px;
 		font-size: 15px;
 		margin-left:35px;
 		padding-bottom:1%;
@@ -1515,76 +1515,75 @@ h2{
 	
 		/* Películas */
 		
-		.modal-video {
-        width: 92%;
-        max-height: 88vh;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        margin: 0;
-        border-radius: 16px;
-    }
+			.modal-video {
+				width: 92%;
+				max-height: 88vh;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				margin: 0;
+				border-radius: 16px;
+			}
 
-		.modal-video.active{
-			width:90%;
-			height:auto;
-			margin:7px;
-			margin-top:35px;
-			margin-bottom:15px;
-		}
+			.modal-video.active{
+				width:90%;
+				height:auto;
+				margin:7px;
+				margin-top:35px;
+				margin-bottom:15px;
+			}
 
-    .modal-content {
-        flex-direction: column;
-        height: auto;
-	  margin:5px;
-    }
+			.modal-content {
+			  flex-direction: column;
+			  height: auto;
+			  margin:5px;
+			}
 
-    .modal-info {
-        flex: none;
-        padding: 20px;
-        max-height: 38vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+			.modal-info {
+				flex: none;
+				padding: 20px;
+				max-height: 38vh;
+				overflow-y: auto;
+				-webkit-overflow-scrolling: touch;
+			}
 
-    /* SCROLLBAR SOLO EN MÓVIL */
-    .modal-info::-webkit-scrollbar {
-        width: 8px;
-    }
+			.modal-info::-webkit-scrollbar {
+				width: 8px;
+			}
 
-    .modal-info::-webkit-scrollbar-track {
-        background: rgba(0,0,0,0.3);
-        border-radius: 10px;
-    }
+			.modal-info::-webkit-scrollbar-track {
+				background: rgba(0,0,0,0.3);
+				border-radius: 10px;
+			}
 
-    .modal-info::-webkit-scrollbar-thumb {
-        background: #ccff14;
-        border-radius: 10px;
-    }
+			.modal-info::-webkit-scrollbar-thumb {
+				background: #ccff14;
+				border-radius: 10px;
+			}
 
-    .modal-info::-webkit-scrollbar-thumb:hover {
-        background: #ffffff;
-    }
+			.modal-info::-webkit-scrollbar-thumb:hover {
+				background: #ffffff;
+			}
 
-    .modal-player {
-        flex: none;
-        height: 48vh;
-        min-height: 260px;
-	  padding-bottom:40px;
-    }
+			.modal-player {
+				flex: none;
+				height: 48vh;
+				min-height: 260px;
+			  padding-bottom:40px;
+			}
 
-    .modal-title {
-        font-size: 21px;
-        text-align: center;
-    }
+			.modal-title {
+				font-size: 21px;
+				text-align: center;
+			}
 
-    .modal-details p { font-size: 15.5px; }
-    .modal-synopsis { font-size: 14.5px; line-height: 1.6; }
+			.modal-details p { font-size: 15.5px; }
+			.modal-synopsis { font-size: 14.5px; line-height: 1.6; }
 
-    .close-modal {
-        top: 12px; right: 12px;
-        width: 40px; height: 40px;
-        font-size: 24px;
-    }
+			.close-modal {
+				top: 12px; right: 12px;
+				width: 40px; height: 40px;
+				font-size: 24px;
+			}
 	
 }
