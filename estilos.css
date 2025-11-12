@@ -1364,6 +1364,7 @@ h2{
 	  .logo {
 		width:100%;
 		height:auto;
+		line-height:25px;
 		font-size: 15px;
 		margin-left:35px;
 		padding-bottom:1%;
@@ -1494,7 +1495,8 @@ h2{
 			
 			li h2{
 				text-align:center;
-				font-size:25px;
+				font-size:20px;
+				line-height:25px;
 			}
 			
 			.listas{
@@ -1525,9 +1527,10 @@ h2{
 
 		.modal-video.active{
 			width:90%;
-			height:470px;
+			height:auto;
 			margin:7px;
 			margin-top:35px;
+			margin-bottom:15px;
 		}
 
     .modal-content {
