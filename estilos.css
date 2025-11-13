@@ -64,7 +64,7 @@ body{
 	
 	.logo {
 		font-family:"Space Comics";
-		font-size: clamp(16px, 4.5vw, 26px);
+		font-size: clamp(0.9rem, 4vw, 1.6rem);
 		color: #ccff14;
 		text-shadow: 0 0 8px #17fc03, 0 0 15px #17fc03;
 		letter-spacing: 1.5px;
@@ -167,9 +167,9 @@ body{
   padding: 15px 20px;
   color: #bdc3c7;
   text-decoration: none;
-  font-size: 0.95rem; /* Original */
+ font-size: clamp(0.85rem, 2.8vw, 1rem);
   font-weight: 500;
-  border-radius: 8px; /* Original */
+  border-radius: 8px; 
   transition: all 0.35s cubic-bezier(0.2, 0.8, 0.2, 1.4);
   gap: 10px;
   white-space: nowrap;
@@ -177,7 +177,6 @@ body{
   text-overflow: ellipsis;
 }
 
-/* Efecto hover para links principales */
 .sidebar-menu a:hover {
   background: linear-gradient(135deg, rgba(57, 255, 20, 0.25), rgba(0, 200, 83, 0.15));
   color: #39FF14 !important;
@@ -196,10 +195,9 @@ body{
   overflow: hidden;
   transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease, padding 0.5s ease;
   opacity: 0;
-  background: rgba(10, 26, 10, 0.6); /* Original */
-  border-radius: 8px; /* Original */
-  border: 1px solid rgba(57, 255, 20, 0.3); /* Original */
-  /*box-shadow: 0 0 15px rgba(57, 255, 20, 0.2);  Original */
+  background: rgba(10, 26, 10, 0.6);
+  border-radius: 8px;
+  border: 1px solid rgba(57, 255, 20, 0.3);
   margin:auto;
 }
 
@@ -1342,7 +1340,6 @@ h2{
 
 	  .sidebar.open {
 		transform: translateX(0);
-		z-index:999;
 	  }
 
 	  .sidebar.open ~ .content {
@@ -1403,11 +1400,11 @@ h2{
 
   		.reproductor {
    			 width: 90%; 
-    			padding: 15px;
+    		padding: 15px;
   		}
 
   		.listacanciones {
-    			width: 90%; 
+    		width: 90%; 
    			min-height: auto; 
   			padding: 15px;
   		}
@@ -1479,6 +1476,11 @@ h2{
 				width:85%;
 				padding:2%;
 			}
+			
+			
+			#playlistTitle { 
+				line-height:25px;
+			}
 	
 		/* Créditos */
 		
@@ -1541,7 +1543,6 @@ h2{
 				transform: translate(-50%, -50%);
 				margin: 0;
 				border-radius: 16px;
-				z-index:998
 			}
 
 			.modal-video.active{
