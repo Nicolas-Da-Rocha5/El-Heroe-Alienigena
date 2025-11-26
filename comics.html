@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+	<head>
+		<title> Cómics - El Héroe Alienígena </title>
+		<meta charset="utf-8">
+		<link href="estilos.css" rel="stylesheet" type="text/css">
+		<link rel="icon" href="favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	
+	<body>
+	
+		<header>
+			<ion-icon name="menu-outline" class="iconoheader"></ion-icon>
+			<div class="tituloheader"> EL HÉROE ALIENÍGENA </div>
+		</header>
+		
+		<aside class="barralateral">
+		
+			<div class="logobarralateral">
+				<a href="index.html" title="Página Principal"> <img src="imagenes/logo_ancho.jpg" alt="Logo del Héroe Alienígena"> </a>
+			</div>
+			
+			<ul class="menubarralateral">
+				<li><a href="series.html"><ion-icon name="tv-outline"></ion-icon> Series</a></li>
+				<li><a href="peliculas.html"><ion-icon name="film-outline"></ion-icon> Películas </a></li>
+				<li><a href="videojuegos.html"><ion-icon name="game-controller-outline"></ion-icon> Videojuegos </a></li>
+				<li><a href="#"><ion-icon name="grid-outline"></ion-icon> Cómics </a></li>
+				<li><a href="personajes.html"><ion-icon name="body-outline"></ion-icon> Personajes </a></li>
+				<li><a href="galeria.html"><ion-icon name="images-outline"></ion-icon> Galería </a></li>
+				<li><a href="creditos.html"><ion-icon name="newspaper-outline"></ion-icon> Créditos </a></li>
+				
+				<li class="menudesplegableomnitrix">
+					<a href="#" class="menudesplegable"><ion-icon name="watch-outline"></ion-icon> Omnitrix <ion-icon name="chevron-down-outline" class="iconodesplegable"></ion-icon></a>
+					
+					<ul class="submenu">
+					  <li><a href="#"> Omnitrix Prototipo</a></li>
+					  <li><a href="#">Omnitrix Recalibrado</a></li>
+					  <li><a href="#">Ultimatrix</a></li>
+					  <li><a href="#">Omnitrix Definitivo</a></li>
+					  <li><a href="#">Omnitrix (Reboot)</a></li>
+					  <li><a href="#">Nemetrix</a></li>
+					</ul>
+				</li>
+				
+			</ul>
+		
+			<div class="footerbarralateral">
+		
+				<p>Copyright ©2000 A.C - 2025 D.C - Corporación El Héroe Alienígena - Instituto Sagrado Corazón de Jesús, Hurlingham - Todos los derechos reservados.</p>
+
+				<div class="social">
+					<a href="https://www.instagram.com/" title="Instagram" target="_blank"> <img src="imagenes/instagram.png" alt="Instagram"> </a>
+					<a href="https://www.facebook.com/?locale=es_LA" title="Facebook" target="_blank"> <img src="imagenes/facebook.png" alt="Facebook"> </a>
+					<a href="https://x.com/?lang=es" title="X" target="_blank"> <img src="imagenes/twitter_x.png" alt="X"> </a>
+				</div>
+				
+			</div>
+			
+		</aside>
+		
+		<div class="oscurecido"></div>
+		
+		<main class="contenido">
+			
+			<h1 class="titulocomic"> CÓMICS DE BEN 10 </h1>
+		
+			<section id="gallery">
+			
+				<div class="comic-card" data-folder="comic1" data-pages="13">
+				  <img src="imagenes/comics/portada1.png" alt="Ben 10">
+				  <h3>Ben 10</h3>
+				</div>
+				
+				<div class="comic-card" data-folder="comic2" data-pages="16">
+				  <img src="imagenes/comics/portada2.png" alt="Powerless">
+				  <h3>Powerless</h3>
+				</div>
+				
+				<div class="comic-card" data-folder="comic3" data-pages="9">
+				  <img src="imagenes/comics/portada3.png" alt="Jail Break">
+				  <h3>Jail Break</h3>
+				</div>
+				
+				<div class="comic-card" data-folder="comic4" data-pages="8">
+				  <img src="imagenes/comics/portada4.png" alt="Ben 10: Alien Force">
+				  <h3>Ben 10: Alien Force</h3>
+				</div>
+				
+				<div class="comic-card" data-folder="comic5" data-pages="9">
+				  <img src="imagenes/comics/portada5.png" alt="The Monster at the End of This Book">
+				  <h3>The Monster at the End of This Book</h3>
+				</div>
+				
+				<div class="comic-card" data-folder="comic6" data-pages="16">
+				  <img src="imagenes/comics/portada6.png" alt="Ben 10: Legacy">
+				  <h3>Ben 10: Legacy</h3>
+				</div>
+				
+				<div class="comic-card" data-folder="comic7" data-pages="20">
+				  <img src="imagenes/comics/portada7.png" alt="Ben 10: Ultimate Alien">
+				  <h3>Ben 10: Ultimate Alien</h3>
+				</div>
+			 
+			</section>
+
+			<section id="reader">
+			  
+			  <button id="backBtn">
+			  
+				<ion-icon name="arrow-back-outline"></ion-icon>
+				<span>Volver a cómics</span>
+				
+			  </button>
+
+			  <div id="pagesContainer" class="pages-container"></div>
+
+				<div class="controls">
+				  
+					<button id="prevBtn"><ion-icon name="chevron-back-outline"></ion-icon></button>
+					
+					<button id="playPauseBtn">
+						<ion-icon name="pause-outline" id="iconPause"></ion-icon>
+						<ion-icon name="play-outline" id="iconPlay" style="display:none;"></ion-icon>
+					</button>
+					
+					<button id="nextBtn"><ion-icon name="chevron-forward-outline"></ion-icon></button>
+
+					<div class="speed-control">
+					  <ion-icon name="timer-outline"></ion-icon>
+					  <input type="range" id="speedSlider" min="6" max="30" value="12">
+					  <span id="speedValue">12s</span>
+					</div>
+					
+				</div>
+			  
+			</section>
+		
+			<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+			<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+			<script src="barralateral.js"></script>
+			<script src="comics.js"></script>
+			
+		</main>
+		
+	</body>
+
+</html>
