@@ -423,7 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
       'imagenes/comics/portada7.jpg'
     ],
     names: {
-      'imagenes/comics/portada1.jpg': 'CÓMIC 1',
+      'imagenes/comics/portada1': 'CÓMIC 1',
       'imagenes/comics/portada2.jpg': 'CÓMIC 2',
       'imagenes/comics/portada3.jpg': 'CÓMIC 3',
       'imagenes/comics/portada4.jpg': 'CÓMIC 4',
