@@ -410,12 +410,28 @@ document.addEventListener('DOMContentLoaded', () => {
   window.allAliensImages = allAliensImages;
   window.allAliensCaptions = allAliensCaptions;
 
-  // ==================== DEMÁS GALERÍAS (con tus rutas reales) ====================
   const galleries = {
     comics: {
-      images: ['portada1','portada2','portada3','portada4','portada5','portada6','portada7'], 
-      names: {'portada1':'CÓMIC 1','portada2':'CÓMIC 2','portada3':'CÓMIC 3','portada4':'CÓMIC 4','portada5':'CÓMIC 5','portada6':'CÓMIC 6','portada7':'CÓMIC 7'}
-    },
+    // Ya no usamos un array de nombres sin extensión, usamos la ruta completa
+    images: [
+      'imagenes/comics/portada1.jpg',
+      'imagenes/comics/portada2.jpg',
+      'imagenes/comics/portada3.jpg',
+      'imagenes/comics/portada4.jpg',
+      'imagenes/comics/portada5.jpg',
+      'imagenes/comics/portada6.jpg',
+      'imagenes/comics/portada7.jpg'
+    ],
+    names: {
+      'imagenes/comics/portada1.jpg': 'CÓMIC 1',
+      'imagenes/comics/portada2.jpg': 'CÓMIC 2',
+      'imagenes/comics/portada3.jpg': 'CÓMIC 3',
+      'imagenes/comics/portada4.jpg': 'CÓMIC 4',
+      'imagenes/comics/portada5.jpg': 'CÓMIC 5',
+      'imagenes/comics/portada6.jpg': 'CÓMIC 6',
+      'imagenes/comics/portada7.jpg': 'CÓMIC 7'
+    }
+  },
     videojuegos: {
       images: ['alienforce','ben10','cosmicdestruction','galacticracing','omniverse','omniverse2','powertrip','protectorofearth','riseofhex','vilgaxattacks'],
       names: {'alienforce':'ALIEN FORCE','ben10':'BEN 10','cosmicdestruction':'ULTIMATE ALIEN COSMIC DESTRUCTION','galacticracing':'GALACTIC RACING','omniverse':'OMNIVERSE','omniverse2':'OMNIVERSE 2','powertrip':'POWER TRIP','protectorofearth':'PROTECTOR OF EARTH','riseofhex':'RISE OF HEX','vilgaxattacks':'VILGAX ATTACKS'}
@@ -436,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   for (const ext of extensions) {
     const path = base + ext;
-    // Creamos una imagen temporal para verificar si existe
+   
     const tester = new Image();
     tester.src = path;
     if (tester.complete && tester.naturalWidth > 0) {
@@ -444,25 +460,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
-  // Si ninguna existe, intenta con .jpg por defecto (fallback visual)
   return base + '.jpg';
 }
 
-  // Generar las galerías planas (comics, etc.)
   Object.keys(galleries).forEach(section => {
   const grid = document.getElementById(`grid-${section}`);
   if (!grid) return;
 
   galleries[section].images.forEach((filename, i) => {
     const img = document.createElement('img');
-    const ruta = getValidImagePath(section, filename);  // Aquí está la magia
+    const ruta = getValidImagePath(section, filename);  
 
     img.src = ruta;
     img.alt = galleries[section].names[filename] || filename;
     img.title = img.alt;
     img.loading = 'lazy';
 
-    // Fondo blur
     img.style.backgroundImage = `url(${ruta})`;
     img.style.backgroundSize = 'cover';
     img.style.backgroundPosition = 'center';
@@ -473,14 +486,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
-  // ==================== FUNCIÓN AUXILIAR PARA EL FONDO BLUR ====================
   function updateLightboxBackground(src) {
     if (lightboxWrapper) {
       lightboxWrapper.style.setProperty('--current-img', `url(${src})`);
     }
   }
 
-  // ==================== LIGHTBOX ====================
   function openLightboxPersonajes(index) {
     currentGallery = 'personajes';
     currentIndex = index;
@@ -514,24 +525,35 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
 	function openLightbox(section, index) {
-	  currentGallery = section;
-	  currentIndex = index;
-	  const filename = galleries[section].images[index];
-	  const src = getValidImagePath(section, filename);
+  currentGallery = section;
+  currentIndex = index;
 
-	  lightboxImg.src = src;
-	  caption.textContent = galleries[section].names[filename];
-	  updateLightboxBackground(src);
+  let src, cap;
 
-	  // Generar miniaturas correctas
-	  const thumbsArray = galleries[section].images.map(f => getValidImagePath(section, f));
-	  generateThumbnails(thumbsArray, index);
+  if (section === 'comics') {
+    src = galleries.comics.images[index];
+    cap = galleries.comics.names[src];
+  } else {
+    const filename = galleries[section].images[index];
+    src = getValidImagePath(section, filename);
+    cap = galleries[section].names[filename];
+  }
 
-	  lightbox.style.display = 'flex';
-	  document.body.classList.add('lightbox-open');
-	  lightbox.classList.add('active');
-	  document.body.style.overflow = 'hidden';
-	}
+  lightboxImg.src = src;
+  caption.textContent = cap;
+  updateLightboxBackground(src);
+
+  const thumbsArray = section === 'comics' 
+    ? galleries.comics.images 
+    : galleries[section].images.map(f => getValidImagePath(section, f));
+
+  generateThumbnails(thumbsArray, index);
+
+  lightbox.style.display = 'flex';
+  document.body.classList.add('lightbox-open');
+  lightbox.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
 
   function generateThumbnails(srcArray, activeIndex) {
     thumbnailStrip.innerHTML = '';
@@ -571,7 +593,6 @@ document.addEventListener('DOMContentLoaded', () => {
   thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
 }
 
-  // Navegación
   prevBtn.onclick = () => {
     let len;
     if (currentGallery === 'personajes') len = allPersonajesImages.length;
