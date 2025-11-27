@@ -7,37 +7,29 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const caption = document.getElementById('caption');
-  const closeBtn = document.getElementById('closeBtn');
-  const prevBtn = document.getElementById('prevBtn');
+  const closeBtn = document.getElementById('closeBtn');  const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const thumbnailStrip = document.getElementById('thumbnailStrip');
   const personajesContainer = document.getElementById('personajes-container');
   const aliensContainer = document.getElementById('aliens-container');
   const lightboxWrapper = document.querySelector('.lightbox-img-wrapper');
 
-  function getImagePath(folder, filename) {
-    const base = `imagenes/${folder}/${filename}`;
-    const extensions = ['.jpg', '.JPG', '.png'];
-    
-    for (const ext of extensions) {
-      const fullPath = base + ext;
-      const tester = new Image();
-      tester.src = fullPath;
-      if (tester.complete && tester.naturalWidth > 0) {
-        return fullPath; 
-		}
-    }
-    
-    return base + '.jpg';
-  }
+  const saveActiveTab = (tabId) => {
+    localStorage.setItem('activeTabBen10', tabId);
+  };
 
-  const saveActiveTab = (tabId) => localStorage.setItem('activeTabBen10', tabId);
-  const getActiveTab = () => localStorage.getItem('activeTabBen10') || 'personajes';
+  const getActiveTab = () => {
+    return localStorage.getItem('activeTabBen10') || 'personajes';
+  };
 
   const activateTab = (tabId) => {
-    document.querySelectorAll('.tab-btn, .tab-content').forEach(el => el.classList.remove('active'));
-    const btn = document.querySelector(`[data-tab="${tabId}"]`);
+    document.querySelectorAll('.tab-btn, .tab-content').forEach(el => {
+      el.classList.remove('active');
+    });
+
+	const btn = document.querySelector(`[data-tab="${tabId}"]`);
     const section = document.getElementById(tabId);
+
     if (btn && section) {
       btn.classList.add('active');
       section.classList.add('active');
@@ -47,10 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const savedTab = getActiveTab();
   activateTab(savedTab);
 
-  document.querySelectorAll('.tab-btn').forEach(btn => {
+   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.onclick = () => {
       const tabId = btn.dataset.tab;
+
       activateTab(tabId);
+
       saveActiveTab(tabId);
     };
   });
@@ -183,9 +177,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   ];
-  
-	let allPersonajesImages = [];
-	let allPersonajesCaptions = [];
+
+  let allPersonajesImages = [];
+  let allPersonajesCaptions = [];
 
   personajesData.forEach(seccion => {
     const titulo = document.createElement('h2');
@@ -195,9 +189,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.createElement('div');
     grid.className = 'personaje-grid';
-
+    
     seccion.versiones.forEach(id => {
-      const ruta = getImagePath(`personajes/${seccion.carpeta}`, id);
+      const ruta = `imagenes/personajes/${seccion.carpeta}/${id}.jpg`;
       const descripcion = seccion.descripciones[id] || id.toUpperCase();
 
       const img = document.createElement('img');
@@ -205,7 +199,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = descripcion;
       img.title = descripcion;
       img.loading = 'lazy';
-
+      
       img.onclick = () => {
         const index = allPersonajesImages.indexOf(ruta);
         if (index !== -1) openLightboxPersonajes(index);
@@ -213,6 +207,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       allPersonajesImages.push(ruta);
       allPersonajesCaptions.push(descripcion);
+
       grid.appendChild(img);
     });
 
@@ -376,7 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
- let allAliensImages = [];
+  let allAliensImages = [];
   let allAliensCaptions = [];
 
   aliensData.forEach(seccion => {
@@ -387,9 +382,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.createElement('div');
     grid.className = 'personaje-grid';
-
+    
     seccion.versiones.forEach(id => {
-      const ruta = getImagePath(`omnitrix/${seccion.carpeta}`, id);
+      const ruta = `imagenes/omnitrix/${seccion.carpeta}/${id}.jpg`;
       const descripcion = seccion.descripciones[id] || id.toUpperCase();
 
       const img = document.createElement('img');
@@ -397,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = descripcion;
       img.title = descripcion;
       img.loading = 'lazy';
-
+      
       img.onclick = () => {
         const index = allAliensImages.indexOf(ruta);
         if (index !== -1) openLightboxAliens(index);
@@ -405,6 +400,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       allAliensImages.push(ruta);
       allAliensCaptions.push(descripcion);
+
       grid.appendChild(img);
     });
 
@@ -414,6 +410,8 @@ document.addEventListener('DOMContentLoaded', () => {
   window.allAliensImages = allAliensImages;
   window.allAliensCaptions = allAliensCaptions;
 
+  // ==================== DEMÁS GALERÍAS (con tus rutas reales) ====================
+  const galleries = {
     comics: {
       images: ['portada1.png','portada2.png','portada3.png','portada4.png','portada5.png','portada6.png','portada7.png'], 
       names: {'portada1.png':'CÓMIC 1','portada2.png':'CÓMIC 2','portada3.png':'CÓMIC 3','portada4.png':'CÓMIC 4','portada5.png':'CÓMIC 5','portada6.png':'CÓMIC 6','portada7.png':'CÓMIC 7'}
@@ -431,37 +429,45 @@ document.addEventListener('DOMContentLoaded', () => {
       names: {'carrera':'BEN 10: CARRERA CONTRA EL TIEMPO','secretodelomnitrix':'BEN 10: SECRETO DEL OMNITRIX','destruccionalienigena':'BEN 10: DESTRUCCIÓN ALIENÍGENA','invasionalienigena':'BEN 10: INVASIÓN ALIENÍGENA','vsuniverso':'BEN 10 VERSUS EL UNIVERSO','alienxtinction':'BEN 10: EXTINCIÓN ALIENÍGENA','ben10010':'BEN 10010','bengen10':'BEN GEN 10','heroesunidos':'BEN 10: HÉROES UNIDOS'}
     }
   };
+  
+  function getImageExtension(filename) {
+  return /\.(png|jpe?g)$/i.test(filename) ? '' : '.jpg';
+}
 
+  // Generar las galerías planas (comics, etc.)
   Object.keys(galleries).forEach(section => {
     const grid = document.getElementById(`grid-${section}`);
     if (!grid) return;
 
     galleries[section].images.forEach((filename, i) => {
   const img = document.createElement('img');
-  const ext = filename.endsWith('.png') ? '' : '.jpg';
+  const ext = getImageExtension(filename);
   const ruta = `imagenes/${section}/${filename}${ext}`;
   
   img.src = ruta;
   img.alt = galleries[section].names[filename];
   img.title = galleries[section].names[filename];
   img.loading = 'lazy';
-
+  
+  // ← ¡NUEVO! Fondo blur en películas, cómics, series y videojuegos
   img.style.backgroundImage = `url(${ruta})`;
   img.style.backgroundSize = 'cover';
   img.style.backgroundPosition = 'center';
-  img.classList.add('blur-background'); 
+  img.classList.add('blur-background'); // clase para el efecto bonito
   
   img.onclick = () => openLightbox(section, i);
   grid.appendChild(img);
 });
   });
 
+  // ==================== FUNCIÓN AUXILIAR PARA EL FONDO BLUR ====================
   function updateLightboxBackground(src) {
     if (lightboxWrapper) {
       lightboxWrapper.style.setProperty('--current-img', `url(${src})`);
     }
   }
 
+  // ==================== LIGHTBOX ====================
   function openLightboxPersonajes(index) {
     currentGallery = 'personajes';
     currentIndex = index;
@@ -498,15 +504,15 @@ document.addEventListener('DOMContentLoaded', () => {
     currentGallery = section;
     currentIndex = index;
     const filename = galleries[section].images[index];
-    const ext = filename.endsWith('.png') ? '' : '.jpg';
+    const ext = getImageExtension(filename);
     const src = `imagenes/${section}/${filename}${ext}`;
     
     lightboxImg.src = src;
     caption.textContent = galleries[section].names[filename];
-    updateLightboxBackground(src);                  
+    updateLightboxBackground(src);                    // ← Fondo blur
     
     const thumbsArray = galleries[section].images.map(f => 
-      `imagenes/${section}/${f}${f.endsWith('.png') ? '' : '.jpg'}`
+      `imagenes/${section}/${f}${getImageExtension(f)}`
     );
     generateThumbnails(thumbsArray, index);
     lightbox.style.display = 'flex';
@@ -543,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cap = allAliensCaptions[currentIndex];
     } else {
       const filename = galleries[currentGallery].images[currentIndex];
-      const ext = filename.endsWith('.png') ? '' : '.jpg';
+      const ext = getImageExtension(filename);
       src = `imagenes/${currentGallery}/${filename}${ext}`;
       cap = galleries[currentGallery].names[filename];
     }
@@ -554,6 +560,7 @@ document.addEventListener('DOMContentLoaded', () => {
     thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
   }
 
+  // Navegación
   prevBtn.onclick = () => {
     let len;
     if (currentGallery === 'personajes') len = allPersonajesImages.length;
