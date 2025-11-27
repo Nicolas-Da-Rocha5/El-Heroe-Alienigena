@@ -1,12 +1,9 @@
-// galeria.js → CON MEMORIA DE PESTAÑA ACTIVA (2025) - CORREGIDO SIN DUPLICADOS
-
 document.addEventListener('DOMContentLoaded', () => {
 
   let currentIndex = 0;
   let currentGallery = 'personajes';
   let thumbs = [];
 
-  // Elementos del lightbox
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const caption = document.getElementById('caption');
@@ -18,51 +15,47 @@ document.addEventListener('DOMContentLoaded', () => {
   const aliensContainer = document.getElementById('aliens-container');
   const lightboxWrapper = document.querySelector('.lightbox-img-wrapper');
 
-  // ====== FUNCIÓN PARA GUARDAR Y RECUPERAR LA PESTAÑA ACTIVA ======
-  const saveActiveTab = (tabId) => {
-    localStorage.setItem('activeTabBen10', tabId);
-  };
+  function getImagePath(folder, filename) {
+    const base = `imagenes/${folder}/${filename}`;
+    const extensions = ['.jpg', '.JPG', '.png'];
+    
+    for (const ext of extensions) {
+      const fullPath = base + ext;
+      const tester = new Image();
+      tester.src = fullPath;
+      if (tester.complete && tester.naturalWidth > 0) {
+        return fullPath; 
+		}
+    }
+    
+    return base + '.jpg';
+  }
 
-  const getActiveTab = () => {
-    return localStorage.getItem('activeTabBen10') || 'personajes';
-  };
+  const saveActiveTab = (tabId) => localStorage.setItem('activeTabBen10', tabId);
+  const getActiveTab = () => localStorage.getItem('activeTabBen10') || 'personajes';
 
-  // ====== ACTIVAR PESTAÑA AL CARGAR ======
   const activateTab = (tabId) => {
-    // Quitar clase active de todos
-    document.querySelectorAll('.tab-btn, .tab-content').forEach(el => {
-      el.classList.remove('active');
-    });
-
-    // Activar el botón y la sección
+    document.querySelectorAll('.tab-btn, .tab-content').forEach(el => el.classList.remove('active'));
     const btn = document.querySelector(`[data-tab="${tabId}"]`);
     const section = document.getElementById(tabId);
-
     if (btn && section) {
       btn.classList.add('active');
       section.classList.add('active');
     }
   };
 
-  // Cargar la pestaña guardada (o personajes por defecto)
   const savedTab = getActiveTab();
   activateTab(savedTab);
 
-  // ====== EVENTOS DE LOS BOTONES (ahora guardan la pestaña) ======
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.onclick = () => {
       const tabId = btn.dataset.tab;
-
-      // Cambiar visualmente
       activateTab(tabId);
-
-      // Guardar en localStorage
       saveActiveTab(tabId);
     };
   });
 
-  // ==================== PERSONAJES (con subcarpetas reales) ====================
-  const personajesData = [
+	const personajesData = [
     {
       nombre: "BEN 10: SERIE ORIGINAL",
       carpeta: "original",
@@ -190,9 +183,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   ];
-
-  let allPersonajesImages = [];
-  let allPersonajesCaptions = [];
+  
+	let allPersonajesImages = [];
+	let allPersonajesCaptions = [];
 
   personajesData.forEach(seccion => {
     const titulo = document.createElement('h2');
@@ -202,9 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.createElement('div');
     grid.className = 'personaje-grid';
-    
+
     seccion.versiones.forEach(id => {
-      const ruta = `imagenes/personajes/${seccion.carpeta}/${id}.jpg`;
+      const ruta = getImagePath(`personajes/${seccion.carpeta}`, id);
       const descripcion = seccion.descripciones[id] || id.toUpperCase();
 
       const img = document.createElement('img');
@@ -212,7 +205,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = descripcion;
       img.title = descripcion;
       img.loading = 'lazy';
-      
+
       img.onclick = () => {
         const index = allPersonajesImages.indexOf(ruta);
         if (index !== -1) openLightboxPersonajes(index);
@@ -220,7 +213,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       allPersonajesImages.push(ruta);
       allPersonajesCaptions.push(descripcion);
-
       grid.appendChild(img);
     });
 
@@ -230,7 +222,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.allPersonajesImages = allPersonajesImages;
   window.allPersonajesCaptions = allPersonajesCaptions;
 
-  // ==================== ALIENS (con subcarpetas por Omnitrix) ====================
   const aliensData = [
     {
       nombre: "OMNITRIX PROTOTIPO",
@@ -271,9 +262,9 @@ document.addEventListener('DOMContentLoaded', () => {
       carpeta: "recalibrado",
       versiones: [
 		"omnitrix_recalibrado",	"fuegopantanoso", "ecoeco", "humungosaurio", "jetray", "frio",
-        "cerebron", "monoaraña", "goop", "alienx", "cannonbolt",
-        "piedra", "rath", "lodestar", "upchuck", "waybig"
-      ],
+        "cerebron", "monoaraña", "goop", "alienx", "piedra", "rath", "lodestar"
+	],
+	
       descripciones: {
 		"omnitrix_recalibrado": "OMNITRIX RECALIBRADO",
         "fuegopantanoso": "FUEGO PANTANOSO",
@@ -285,45 +276,46 @@ document.addEventListener('DOMContentLoaded', () => {
         "monoaraña": "MONO ARAÑA",
         "goop": "GOOP",
         "alienx": "ALIEN X",
-        "cannonbolt": "CANNONBOLT",
         "piedra": "PIEDRA",
         "rath": "RATH",
-        "lodestar": "LODESTAR",
-        "upchuck": "UPCHUCK",
-        "waybig": "WAY BIG"
+        "lodestar": "LODESTAR"
+    
       }
     },
     {
       nombre: "ULTIMATRIX",
       carpeta: "ultimatrix",
       versiones: [
-        "ultimatrix","ultimate_swampfire", "ultimate_ecoeco", "ultimate_humungosaurio", "ultimate_frío",
-        "ultimate_cannonbolt", "ultimate_monoaraña", "ultimate_waybig", "ultimate_alienx",
-        "ultimate_rath", "ultimate_lodestar", "ultimate_upchuck"
+        "ultimatrix","fuegopantanososupremo", "ecoecosupremo", "humungosauriosupremo", "friosupremo",
+        "cannonboltsupremo", "monoarañasupremo", "muygrandesupremo", "rathsupremo", "bestiasuprema", 
+		"bivalvan", "galapagus", "andreas", "raad", "pandor"
       ],
       descripciones: {
         "ultimatrix": "ULTIMATRIX",
-		"ultimate_swampfire": "FUEGO PANTANOSO SUPREMO",
-        "ultimate_ecoeco": "ECO ECO SUPREMO",
-        "ultimate_humungosaurio": "HUMUNGOSAURIO SUPREMO",
-        "ultimate_frío": "FRÍO SUPREMO",
-        "ultimate_cannonbolt": "CANNONBOLT SUPREMO",
-        "ultimate_monoaraña": "MONO ARAÑA SUPREMO",
-        "ultimate_waybig": "WAY BIG SUPREMO",
-        "ultimate_alienx": "ALIEN X SUPREMO",
-        "ultimate_rath": "RATH SUPREMO",
-        "ultimate_lodestar": "LODESTAR SUPREMO",
-        "ultimate_upchuck": "UPCHUCK SUPREMO"
+		"fuegopantanososupremo": "FUEGO PANTANOSO SUPREMO",
+        "ecoecosupremo": "ECO ECO SUPREMO",
+        "humungosauriosupremo": "HUMUNGOSAURIO SUPREMO",
+        "friosupremo": "FRÍO SUPREMO",
+        "cannonboltsupremo": "CANNONBOLT SUPREMO",
+        "monoarañasupremo": "MONO ARAÑA SUPREMO",
+        "muygrandesupremo": "MUY GRANDE SUPREMO",
+        "rathsupremo": "RATH SUPREMO",
+        "bivalvan": "BIVALVAN",
+        "galapagus": "GALAPAGUS",
+        "andreas": "ANDREAS",
+        "raad": "RA'AD",
+		"pandor": "P'ANDOR"
       }
     },
+	
     {
       nombre: "OMNITRIX DEFINITIVO",
       carpeta: "definitivo",
       versiones: [
         "omnitrix_definitivo", "gravattack", "feedback", "bloxx", "shocksquatch", "kickinhawk",
         "toepick", "astrodactyl", "bullfrag", "atomix", "gutrot",
-        "crashhopper", "ballweevil", "walkatrout", "pesky_dust", "mole_stache",
-        "the_worst"
+        "crashhopper", "escarabola", "walkatrout", "molestolvo", "molestache",
+        "elpeor", "whampire"
       ],
       descripciones: {
 		"omnitrix_definitivo": "OMNITRIX DEFINITIVO",
@@ -336,32 +328,29 @@ document.addEventListener('DOMContentLoaded', () => {
         "astrodactyl": "ASTRODACTYL",
         "bullfrag": "BULLFRAG",
         "atomix": "ATOMIX",
-        "gutrot": "GUTROT",
+        "gutrot": "BARRIGOBOT",
         "crashhopper": "CRASHHOPPER",
-        "ballweevil": "BALL WEEVIL",
+        "escarabola": "ESCARABOLA",
         "walkatrout": "WALKATROUT",
-        "pesky_dust": "PESKY DUST",
-        "mole_stache": "MOLE-STACHE",
-        "the_worst": "THE WORST"
+        "molestolvo": "MOLESTOLVO",
+        "molestache": "MOLESTACHE",
+        "elpeor": "EL PEOR",
+		"whampire":"WHAMPIRE"
       }
     },
     {
       nombre: "OMNITRIX REBOOT",
       carpeta: "reboot",
       versiones: [
-        "omnitrix_reboot", "overflow", "gax", "shock_rock", "slapback", "surge",
-        "stinkfly", "rath_reboot", "humungosaurio_reboot"
+        "omnitrix_reboot", "overflow", "gax", "shockrock", "slapback", "surge"
       ],
       descripciones: {
         "omnitrix_reboot": "OMNITRIX REBOOT",
-		"overflow": "DESBORDAMIENTO",
+		"overflow": "OVERFLOW",
         "gax": "GAX",
-        "shock_rock": "SHOCK ROCK",
+        "shockrock": "SHOCK ROCK",
         "slapback": "SLAPBACK",
-        "surge": "SURGE",
-        "stinkfly": "STINKFLY",
-        "rath_reboot": "RATH (REBOOT)",
-        "humungosaurio_reboot": "HUMUNGOSAURIO (REBOOT)"
+        "surge": "SURGE"
       }
     },
     {
@@ -369,7 +358,7 @@ document.addEventListener('DOMContentLoaded', () => {
       carpeta: "nemetrix",
       versiones: [
         "nemetrix", "crabdozer", "buglizard", "slamworm", "mucilator", "terroranchula",
-        "tyrannopede", "hypnotick", "omnivoracious", "vicetopus", "panuncian"
+        "tyrannopedo", "hypnotick", "omnivoracious", "vicetopus", "panuncian"
       ],
       descripciones: {
 		"nemetrix": "NEMETRIX",
@@ -378,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "slamworm": "SLAMWORM",
         "mucilator": "MUCILATOR",
         "terroranchula": "TERRORANCHULA",
-        "tyrannopede": "TYRANNOPEDO",
+        "tyrannopedo": "TYRANNOPEDO",
         "hypnotick": "HYPNOTICK",
         "omnivoracious": "OMNIVORACIOUS",
         "vicetopus": "VICETOPUS",
@@ -387,7 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   ];
 
-  let allAliensImages = [];
+ let allAliensImages = [];
   let allAliensCaptions = [];
 
   aliensData.forEach(seccion => {
@@ -398,9 +387,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const grid = document.createElement('div');
     grid.className = 'personaje-grid';
-    
+
     seccion.versiones.forEach(id => {
-      const ruta = `imagenes/omnitrix/${seccion.carpeta}/${id}.jpg`;
+      const ruta = getImagePath(`omnitrix/${seccion.carpeta}`, id);
       const descripcion = seccion.descripciones[id] || id.toUpperCase();
 
       const img = document.createElement('img');
@@ -408,7 +397,7 @@ document.addEventListener('DOMContentLoaded', () => {
       img.alt = descripcion;
       img.title = descripcion;
       img.loading = 'lazy';
-      
+
       img.onclick = () => {
         const index = allAliensImages.indexOf(ruta);
         if (index !== -1) openLightboxAliens(index);
@@ -416,7 +405,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       allAliensImages.push(ruta);
       allAliensCaptions.push(descripcion);
-
       grid.appendChild(img);
     });
 
@@ -426,8 +414,6 @@ document.addEventListener('DOMContentLoaded', () => {
   window.allAliensImages = allAliensImages;
   window.allAliensCaptions = allAliensCaptions;
 
-  // ==================== DEMÁS GALERÍAS (con tus rutas reales) ====================
-  const galleries = {
     comics: {
       images: ['portada1.png','portada2.png','portada3.png','portada4.png','portada5.png','portada6.png','portada7.png'], 
       names: {'portada1.png':'CÓMIC 1','portada2.png':'CÓMIC 2','portada3.png':'CÓMIC 3','portada4.png':'CÓMIC 4','portada5.png':'CÓMIC 5','portada6.png':'CÓMIC 6','portada7.png':'CÓMIC 7'}
@@ -446,7 +432,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Generar las galerías planas (comics, etc.)
   Object.keys(galleries).forEach(section => {
     const grid = document.getElementById(`grid-${section}`);
     if (!grid) return;
@@ -460,26 +445,23 @@ document.addEventListener('DOMContentLoaded', () => {
   img.alt = galleries[section].names[filename];
   img.title = galleries[section].names[filename];
   img.loading = 'lazy';
-  
-  // ← ¡NUEVO! Fondo blur en películas, cómics, series y videojuegos
+
   img.style.backgroundImage = `url(${ruta})`;
   img.style.backgroundSize = 'cover';
   img.style.backgroundPosition = 'center';
-  img.classList.add('blur-background'); // clase para el efecto bonito
+  img.classList.add('blur-background'); 
   
   img.onclick = () => openLightbox(section, i);
   grid.appendChild(img);
 });
   });
 
-  // ==================== FUNCIÓN AUXILIAR PARA EL FONDO BLUR ====================
   function updateLightboxBackground(src) {
     if (lightboxWrapper) {
       lightboxWrapper.style.setProperty('--current-img', `url(${src})`);
     }
   }
 
-  // ==================== LIGHTBOX ====================
   function openLightboxPersonajes(index) {
     currentGallery = 'personajes';
     currentIndex = index;
@@ -521,7 +503,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     lightboxImg.src = src;
     caption.textContent = galleries[section].names[filename];
-    updateLightboxBackground(src);                    // ← Fondo blur
+    updateLightboxBackground(src);                  
     
     const thumbsArray = galleries[section].images.map(f => 
       `imagenes/${section}/${f}${f.endsWith('.png') ? '' : '.jpg'}`
@@ -568,11 +550,10 @@ document.addEventListener('DOMContentLoaded', () => {
     
     lightboxImg.src = src;
     caption.textContent = cap;
-    updateLightboxBackground(src);                    // ← Actualiza el fondo blur al navegar
+    updateLightboxBackground(src);                 
     thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
   }
 
-  // Navegación
   prevBtn.onclick = () => {
     let len;
     if (currentGallery === 'personajes') len = allPersonajesImages.length;
