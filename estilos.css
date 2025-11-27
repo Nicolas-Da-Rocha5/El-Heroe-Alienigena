@@ -283,21 +283,22 @@
 	}
 	
 	.tituloheader, .titulocomic, h1{
-		font-family: "Space Comics";
-		font-size: clamp(1rem, 3.8vw, 1.8rem);     
-		background: -webkit-linear-gradient(#f0e400, #b9fc00, #5ee80e, #28a859, #237a45);
+		font-family: "Space Comics", sans-serif;
+		font-size: clamp(1rem, 3.6vw, 1.9rem);
+		background: linear-gradient(90deg, #f0e400, #b9fc00, #5ee80e, #28a859, #237a45);
 		-webkit-background-clip: text;
+		background-clip: text;
 		-webkit-text-fill-color: transparent;
-		letter-spacing: 1.5px;
-		margin: auto;
 		text-align: center;
-		padding: 12px 20px;                   
-		white-space: nowrap;                    
-		overflow: hidden;
-		text-overflow: ellipsis;                 
-		max-width: 78vw;                         
-		transition: all 0.4s ease;
+		letter-spacing: 1.2px;
 		line-height: 1.2;
+		white-space: normal !important; 
+		word-break: keep-all;
+		hyphens: auto;
+		padding: 8px 12px;
+		max-width: 82vw;
+		transition: all 0.4s ease;
+		text-shadow: 0 0 15px rgba(23, 252, 3, 0.4);
 	}
 	
 /* Barra Lateral */
@@ -319,7 +320,7 @@
 		flex-direction:column;
 		transform:translateX(-100%);
 		transition:transform .4s cubic-bezier(.19,1,.22,1);
-		z-index:1000;
+		z-index:1001;
 		overflow-y:auto;
 		overflow-x:hidden;
 	}
@@ -541,7 +542,7 @@
 	
 /* Varios */
 
-	.trama, .compañia, .creadores{
+	.trama, .compañia, .creadores, .omnitrix{
 		display:flex;
 		justify-content:space-around;
 		width:90%;
@@ -600,7 +601,7 @@
 
 /* Index */
 
-	.textodivindex{
+	.textodivindex, .omnitrixtexto{
 		display:flex;
 		width:45%;
 		height:auto;
@@ -621,14 +622,14 @@
 		text-align:center;
 	}
 	
-	.textodivindex p{
+	.textodivindex p, .omnitrixtexto p{
 		color:black;
 		font-size:20px;
 		line-height:28px;
 		text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 	}
 	
-	.fotosindex{
+	.fotosindex, .imagenomnitrix{
 		width:45%;
 		height:auto;
 		display:flex;
@@ -636,7 +637,7 @@
 		align-items:center;
 	}
 	
-	.fotosindex img{
+	.fotosindex img, .imagenomnitrix img{
 		width:100%;
 		max-width:100%;
 		height:auto;
@@ -1073,7 +1074,7 @@
 		padding:0%;
 	}
 
-	li{
+	li, .infoalien{
 		display:flex;
 		flex-direction:column;
 		width:90%;
@@ -1370,6 +1371,11 @@
 		color: #ccff14;
 		text-shadow: 0 0 8px #17fc03, 0 0 15px #17fc03;
 		letter-spacing: 1px;
+		display:-webkit-box;
+		-webkit-line-clamp:3;
+		-webkit-box-orient:vertical;
+		overflow:hidden;
+		text-overflow:ellipsis;
 	}
 	
 	.textojuegos p{
@@ -2011,7 +2017,6 @@
   transform: scale(1.1) translateY(-12px);
   box-shadow: 0 25px 50px rgba(23,252,3,0.7), 0 0 40px rgba(23,252,3,0.9);
   border-color: #17fc03;
-  filter: brightness(0.15);
   animation: destello 1.2s infinite alternate;
 }
 
@@ -2040,7 +2045,7 @@
   transform: scale(1.05);
 }
 
-blur-background {
+.blur-background {
   position: relative;
   z-index: 1;
 }
@@ -2271,27 +2276,6 @@ body.lightbox-open {
   box-shadow: 0 0 20px #17fc03;
 }
 
-@keyframes animateBackground {
-  0% { background-position: 0% 67%; }
-  50% { background-position: 100% 34%; }
-  100% { background-position: 0% 67%; }
-}
-
-@keyframes destello {
-  0%, 100% { box-shadow: 0 0 15px rgba(23,252,3,0.6); }
-  50% { box-shadow: 0 0 35px rgba(23,252,3,1); }
-}
-
-@keyframes pulseOmnitrix {
-  0%, 100% { opacity: 0.3; transform: scale(1); }
-  50% { opacity: 0.6; transform: scale(1.1); }
-}
-
-@keyframes glowText {
-  from { text-shadow: 0 0 10px #17fc03, 0 0 20px #17fc03; }
-  to { text-shadow: 0 0 20px #17fc03, 0 0 40px #17fc03, 0 0 60px #17fc03; }
-}
-
 .personaje-titulo {
   font-family: "Space Comics";
   font-size: 32px;
@@ -2438,6 +2422,24 @@ body.lightbox-open {
 	}
 	
 /* Omnitrix Prototipo */
+
+	.alienigenas{
+		text-align:center;
+		width:35%;
+		margin-top:30px;
+		border-bottom: 2px dotted #ccff14;
+	}
+	
+	
+	
+	
+
+	.aliens{
+		
+	}
+	
+	
+
 /* Omnitrix Recalibrado */
 /* Ultimatrix */
 /* Omnitrix Definitivo */
@@ -2457,12 +2459,14 @@ body.lightbox-open {
 		h1{
 			height:auto;
 			max-width:none !important;
+			line-height:35px;
 		}
 		
 		.tituloheader{
-			font-size: clamp(0.8rem, 4.5vw, 1.3rem);
-			letter-spacing: 0.8px;
-			max-width: 68vw;
+			font-size: clamp(0.95rem, 4.2vw, 1.5rem);
+			max-width: 78vw;
+			line-height: 35px;
+			padding: 6px 10px;
 		}
 		
 		.iconoheader{
@@ -2476,6 +2480,8 @@ body.lightbox-open {
 
 		.barralateral-abierta {
 			transform: translateX(0);
+			width:100%;
+			height:100%;
 		}
 
 		.barralateral-abierta ~ .contenido {
@@ -2543,18 +2549,17 @@ body.lightbox-open {
   			padding: 15px;
   		}
 
- 	 	.reproductor .imagenreproductor {
-   			width: 200px; 
-   			height: 200px;
- 		}
-
  		 .playlist {
    			max-height: 300px;
- 		 }
+ 		 }		
 		 
 		.reproductor .imagenreproductor{
-			width:400px;
-			height:325px;
+			width:50%;
+			height:auto;
+		}
+		
+		.navegador h2{
+			line-height:50px;
 		}
 
 		/* Index */
@@ -2570,6 +2575,8 @@ body.lightbox-open {
 				justify-content:center;
 				align-items:center;
 				padding:2%;
+				margin-top:15px;
+				margin-bottom:15px;
 			}
 			
 			.textodivindex{
@@ -2585,7 +2592,7 @@ body.lightbox-open {
 			}
 			
 			#playlistTitle { 
-				line-height:35px;
+				line-height:50px;
 			}
 	
 		/* Créditos */
@@ -2644,7 +2651,7 @@ body.lightbox-open {
 				width: 92%;
 				max-height: 80vh;
 				top: 50%;
-				left: 50%;
+				left: 47%;
 				transform: translate(-50%, -50%);
 				margin: 0;
 				border-radius: 16px;
@@ -2700,6 +2707,7 @@ body.lightbox-open {
 			.modal-title {
 				font-size: 21px;
 				text-align: center;
+				line-height:35px;
 			}
 
 			.modal-details p { font-size: 15.5px; }
@@ -2710,6 +2718,8 @@ body.lightbox-open {
 				width: 40px; height: 40px;
 				font-size: 24px;
 			}
+	
+		/* Videojuegos */
 	
 			.videojuegos{
 				flex-direction:column;
@@ -2723,7 +2733,10 @@ body.lightbox-open {
 			}
 			
 			.textojuegos h2{
-				letter-spacing:10px;
+				font-size: clamp(1rem, 4.5vw, 1.4rem) !important;
+				padding: 10px 10px !important;
+				margin: 10px 6px !important;
+				-webkit-line-clamp: 3;
 			}
 			
 			.linksjuegos2{
@@ -2737,15 +2750,79 @@ body.lightbox-open {
 			
 		/* Cómics */
 			
-			#reader{
-				margin-top:60px;
+			#gallery {
+				grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+				gap: 15px;
+				padding: 0 10px; 
 			}
-			
-			#backBtn{
-				top:50px;
-				left:32%;
+
+			.comic-card {
+				border-radius: 10px; 
 			}
-			
+
+			.comic-card h3 {
+				font-size: 16px;
+				padding: 10px;
+			}
+
+			#reader {
+				margin-top: 60px; 
+				width: 100%;
+				padding: 0 5px; 
+				max-width: none;
+			}
+
+			#backBtn {
+				top: 50px; 
+				left: 50%; 
+				transform: translateX(-50%); 
+				padding: 8px 16px; 
+				font-size: 14px;
+			}
+
+			#backBtn ion-icon {
+				font-size: 20px; 
+			}
+
+			.pages-container {
+				height: 60vh; 
+				border-radius: 10px; 
+			}
+
+			.controls {
+				gap: 15px; 
+				padding: 10px; 
+				flex-wrap: wrap; 
+				justify-content: center;
+			}
+
+			.controls button {
+				padding: 8px; 
+				font-size: 57px;
+			}
+
+			.speed-control {
+				width: 100%;
+				justify-content: center;
+			}
+
+			#speedSlider {
+				width: 80%; 
+			}
+
+			.contenido {
+				padding: 20px 10px; 
+			}
+
+			.titulocomic {
+				font-size: clamp(1.2rem, 6vw, 1.8rem); 
+				padding: 10px;
+			}
+
+			.barralateral {
+				width: 80vw;
+			}
+	
 		/* Personajes */
 		
 			.textopjs h2{
