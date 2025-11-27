@@ -7,7 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightboxImg');
   const caption = document.getElementById('caption');
-  const closeBtn = document.getElementById('closeBtn');  const prevBtn = document.getElementById('prevBtn');
+  const closeBtn = document.getElementById('closeBtn');  
+  const prevBtn = document.getElementById('prevBtn');
   const nextBtn = document.getElementById('nextBtn');
   const thumbnailStrip = document.getElementById('thumbnailStrip');
   const personajesContainer = document.getElementById('personajes-container');
@@ -412,26 +413,26 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const galleries = {
     comics: {
-    // Ya no usamos un array de nombres sin extensión, usamos la ruta completa
-    images: [
-        'portada1',
-        'portada2',
-        'portada3',
-        'portada4',
-        'portada5',
-        'portada6',
-        'portada7'
+      // Rutas completas con .jpg (corregido: sin duplicados, con tus nombres reales)
+      images: [
+        'imagenes/comics/portada1.jpg',
+        'imagenes/comics/portada2.jpg',
+        'imagenes/comics/portada3.jpg',
+        'imagenes/comics/portada4.jpg',
+        'imagenes/comics/portada5.jpg',
+        'imagenes/comics/portada6.jpg',
+        'imagenes/comics/portada7.jpg'
       ],
       names: {
-        'portada1': 'CÓMIC 1',
-        'portada2': 'CÓMIC 2',
-        'portada3': 'CÓMIC 3',
-        'portada4': 'CÓMIC 4',
-        'portada5': 'CÓMIC 5',
-        'portada6': 'CÓMIC 6',
-        'portada7': 'CÓMIC 7'
+        'imagenes/comics/portada1.jpg': 'CÓMIC 1',
+        'imagenes/comics/portada2.jpg': 'CÓMIC 2',
+        'imagenes/comics/portada3.jpg': 'CÓMIC 3',
+        'imagenes/comics/portada4.jpg': 'CÓMIC 4',
+        'imagenes/comics/portada5.jpg': 'CÓMIC 5',
+        'imagenes/comics/portada6.jpg': 'CÓMIC 6',
+        'imagenes/comics/portada7.jpg': 'CÓMIC 7'
       }
-  },
+    },
     videojuegos: {
       images: ['alienforce','ben10','cosmicdestruction','galacticracing','omniverse','omniverse2','powertrip','protectorofearth','riseofhex','vilgaxattacks'],
       names: {'alienforce':'ALIEN FORCE','ben10':'BEN 10','cosmicdestruction':'ULTIMATE ALIEN COSMIC DESTRUCTION','galacticracing':'GALACTIC RACING','omniverse':'OMNIVERSE','omniverse2':'OMNIVERSE 2','powertrip':'POWER TRIP','protectorofearth':'PROTECTOR OF EARTH','riseofhex':'RISE OF HEX','vilgaxattacks':'VILGAX ATTACKS'}
@@ -445,46 +446,29 @@ document.addEventListener('DOMContentLoaded', () => {
       names: {'carrera':'BEN 10: CARRERA CONTRA EL TIEMPO','secretodelomnitrix':'BEN 10: SECRETO DEL OMNITRIX','destruccionalienigena':'BEN 10: DESTRUCCIÓN ALIENÍGENA','invasionalienigena':'BEN 10: INVASIÓN ALIENÍGENA','vsuniverso':'BEN 10 VERSUS EL UNIVERSO','alienxtinction':'BEN 10: EXTINCIÓN ALIENÍGENA','ben10010':'BEN 10010','bengen10':'BEN GEN 10','heroesunidos':'BEN 10: HÉROES UNIDOS'}
     }
   };
-  
-  function getValidImagePath(section, filename) {
-  const base = `imagenes/${section}/${filename}`;
-  const extensions = ['.png', '.jpg', '.JPG', '.jpeg', '.JPEG'];
-  
-  for (const ext of extensions) {
-    const path = base + ext;
-   
-    const tester = new Image();
-    tester.src = path;
-    if (tester.complete && tester.naturalWidth > 0) {
-      return path;
-    }
-  }
-  
-  return base + '.jpg';
-}
 
   Object.keys(galleries).forEach(section => {
-  const grid = document.getElementById(`grid-${section}`);
-  if (!grid) return;
+    const grid = document.getElementById(`grid-${section}`);
+    if (!grid) return;
 
-  galleries[section].images.forEach((filename, i) => {
-    const img = document.createElement('img');
-    const ruta = getValidImagePath(section, filename);  
+    galleries[section].images.forEach((ruta, i) => {
+      const fullRuta = (section === 'comics' ? ruta : `imagenes/${section}/${ruta}.jpg`);  // Para comics usa ruta completa, para otros agrega .jpg
 
-    img.src = ruta;
-    img.alt = galleries[section].names[filename] || filename;
-    img.title = img.alt;
-    img.loading = 'lazy';
+      const img = document.createElement('img');
+      img.src = fullRuta;
+      img.alt = galleries[section].names[ruta] || ruta;
+      img.title = img.alt;
+      img.loading = 'lazy';
 
-    img.style.backgroundImage = `url(${ruta})`;
-    img.style.backgroundSize = 'cover';
-    img.style.backgroundPosition = 'center';
-    img.classList.add('blur-background');
+      img.style.backgroundImage = `url(${fullRuta})`;
+      img.style.backgroundSize = 'cover';
+      img.style.backgroundPosition = 'center';
+      img.classList.add('blur-background');
 
-    img.onclick = () => openLightbox(section, i);
-    grid.appendChild(img);
+      img.onclick = () => openLightbox(section, i);
+      grid.appendChild(img);
+    });
   });
-});
 
   function updateLightboxBackground(src) {
     if (lightboxWrapper) {
@@ -524,36 +508,27 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
   }
   
-	function openLightbox(section, index) {
-  currentGallery = section;
-  currentIndex = index;
+  function openLightbox(section, index) {
+    currentGallery = section;
+    currentIndex = index;
 
-  let src, cap;
+    const rutaBase = galleries[section].images[index];
+    const src = (section === 'comics' ? rutaBase : `imagenes/${section}/${rutaBase}.jpg`);
+    const cap = galleries[section].names[rutaBase];
 
-  if (section === 'comics') {
-    src = galleries.comics.images[index];
-    cap = galleries.comics.names[src];
-  } else {
-    const filename = galleries[section].images[index];
-    src = getValidImagePath(section, filename);
-    cap = galleries[section].names[filename];
+    lightboxImg.src = src;
+    caption.textContent = cap;
+    updateLightboxBackground(src);
+
+    const thumbsArray = galleries[section].images.map(r => (section === 'comics' ? r : `imagenes/${section}/${r}.jpg`));
+
+    generateThumbnails(thumbsArray, index);
+
+    lightbox.style.display = 'flex';
+    document.body.classList.add('lightbox-open');
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
   }
-
-  lightboxImg.src = src;
-  caption.textContent = cap;
-  updateLightboxBackground(src);
-
-  const thumbsArray = section === 'comics' 
-    ? galleries.comics.images 
-    : galleries[section].images.map(f => getValidImagePath(section, f));
-
-  generateThumbnails(thumbsArray, index);
-
-  lightbox.style.display = 'flex';
-  document.body.classList.add('lightbox-open');
-  lightbox.classList.add('active');
-  document.body.style.overflow = 'hidden';
-}
 
   function generateThumbnails(srcArray, activeIndex) {
     thumbnailStrip.innerHTML = '';
@@ -582,9 +557,9 @@ document.addEventListener('DOMContentLoaded', () => {
     src = allAliensImages[currentIndex];
     cap = allAliensCaptions[currentIndex];
   } else {
-    const filename = galleries[currentGallery].images[currentIndex];
-    src = getValidImagePath(currentGallery, filename);
-    cap = galleries[currentGallery].names[filename];
+    const rutaBase = galleries[currentGallery].images[currentIndex];
+    src = (currentGallery === 'comics' ? rutaBase : `imagenes/${currentGallery}/${rutaBase}.jpg`);
+    cap = galleries[currentGallery].names[rutaBase];
   }
 
   lightboxImg.src = src;
