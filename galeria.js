@@ -430,35 +430,48 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
   
-  function getImageExtension(filename) {
-  return /\.(png|jpe?g)$/i.test(filename) ? '' : '.jpg';
+  function getValidImagePath(section, filename) {
+  const base = `imagenes/${section}/${filename}`;
+  const extensions = ['.png', '.jpg', '.JPG', '.jpeg', '.JPEG'];
+  
+  for (const ext of extensions) {
+    const path = base + ext;
+    // Creamos una imagen temporal para verificar si existe
+    const tester = new Image();
+    tester.src = path;
+    if (tester.complete && tester.naturalWidth > 0) {
+      return path;
+    }
+  }
+  
+  // Si ninguna existe, intenta con .jpg por defecto (fallback visual)
+  return base + '.jpg';
 }
 
   // Generar las galerías planas (comics, etc.)
   Object.keys(galleries).forEach(section => {
-    const grid = document.getElementById(`grid-${section}`);
-    if (!grid) return;
+  const grid = document.getElementById(`grid-${section}`);
+  if (!grid) return;
 
-    galleries[section].images.forEach((filename, i) => {
-  const img = document.createElement('img');
-  const ext = getImageExtension(filename);
-  const ruta = `imagenes/${section}/${filename}${ext}`;
-  
-  img.src = ruta;
-  img.alt = galleries[section].names[filename];
-  img.title = galleries[section].names[filename];
-  img.loading = 'lazy';
-  
-  // ← ¡NUEVO! Fondo blur en películas, cómics, series y videojuegos
-  img.style.backgroundImage = `url(${ruta})`;
-  img.style.backgroundSize = 'cover';
-  img.style.backgroundPosition = 'center';
-  img.classList.add('blur-background'); // clase para el efecto bonito
-  
-  img.onclick = () => openLightbox(section, i);
-  grid.appendChild(img);
-});
+  galleries[section].images.forEach((filename, i) => {
+    const img = document.createElement('img');
+    const ruta = getValidImagePath(section, filename);  // Aquí está la magia
+
+    img.src = ruta;
+    img.alt = galleries[section].names[filename] || filename;
+    img.title = img.alt;
+    img.loading = 'lazy';
+
+    // Fondo blur
+    img.style.backgroundImage = `url(${ruta})`;
+    img.style.backgroundSize = 'cover';
+    img.style.backgroundPosition = 'center';
+    img.classList.add('blur-background');
+
+    img.onclick = () => openLightbox(section, i);
+    grid.appendChild(img);
   });
+});
 
   // ==================== FUNCIÓN AUXILIAR PARA EL FONDO BLUR ====================
   function updateLightboxBackground(src) {
@@ -499,27 +512,26 @@ document.addEventListener('DOMContentLoaded', () => {
     lightbox.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
+  
+	function openLightbox(section, index) {
+	  currentGallery = section;
+	  currentIndex = index;
+	  const filename = galleries[section].images[index];
+	  const src = getValidImagePath(section, filename);
 
-  function openLightbox(section, index) {
-    currentGallery = section;
-    currentIndex = index;
-    const filename = galleries[section].images[index];
-    const ext = getImageExtension(filename);
-    const src = `imagenes/${section}/${filename}${ext}`;
-    
-    lightboxImg.src = src;
-    caption.textContent = galleries[section].names[filename];
-    updateLightboxBackground(src);                    // ← Fondo blur
-    
-    const thumbsArray = galleries[section].images.map(f => 
-      `imagenes/${section}/${f}${getImageExtension(f)}`
-    );
-    generateThumbnails(thumbsArray, index);
-    lightbox.style.display = 'flex';
-	document.body.classList.add('lightbox-open');
-	lightbox.classList.add('active');
-    document.body.style.overflow = 'hidden';
-  }
+	  lightboxImg.src = src;
+	  caption.textContent = galleries[section].names[filename];
+	  updateLightboxBackground(src);
+
+	  // Generar miniaturas correctas
+	  const thumbsArray = galleries[section].images.map(f => getValidImagePath(section, f));
+	  generateThumbnails(thumbsArray, index);
+
+	  lightbox.style.display = 'flex';
+	  document.body.classList.add('lightbox-open');
+	  lightbox.classList.add('active');
+	  document.body.style.overflow = 'hidden';
+	}
 
   function generateThumbnails(srcArray, activeIndex) {
     thumbnailStrip.innerHTML = '';
@@ -540,25 +552,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function updateImage() {
-    let src, cap;
-    if (currentGallery === 'personajes') {
-      src = allPersonajesImages[currentIndex];
-      cap = allPersonajesCaptions[currentIndex];
-    } else if (currentGallery === 'aliens') {
-      src = allAliensImages[currentIndex];
-      cap = allAliensCaptions[currentIndex];
-    } else {
-      const filename = galleries[currentGallery].images[currentIndex];
-      const ext = getImageExtension(filename);
-      src = `imagenes/${currentGallery}/${filename}${ext}`;
-      cap = galleries[currentGallery].names[filename];
-    }
-    
-    lightboxImg.src = src;
-    caption.textContent = cap;
-    updateLightboxBackground(src);                 
-    thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
+  let src, cap;
+  if (currentGallery === 'personajes') {
+    src = allPersonajesImages[currentIndex];
+    cap = allPersonajesCaptions[currentIndex];
+  } else if (currentGallery === 'aliens') {
+    src = allAliensImages[currentIndex];
+    cap = allAliensCaptions[currentIndex];
+  } else {
+    const filename = galleries[currentGallery].images[currentIndex];
+    src = getValidImagePath(currentGallery, filename);
+    cap = galleries[currentGallery].names[filename];
   }
+
+  lightboxImg.src = src;
+  caption.textContent = cap;
+  updateLightboxBackground(src);
+  thumbs.forEach((t, i) => t.classList.toggle('active', i === currentIndex));
+}
 
   // Navegación
   prevBtn.onclick = () => {
