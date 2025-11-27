@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
       carpeta: "prototipo",
       versiones: [
         "omnitrix_prototipo","cuatrobrazos", "fantasmatico", "fuego", "xlr8", "diamante", "acuatico",
-        "insectoide", "bestia", "ultrat", "materiagris", "cannonbolt", "silvestre", "blitzwolfer", "snareoh",
+        "insectoide", "bestia", "ultrat", "materiagris", "cannonbolt", "wildvine", "blitzwolfer", "snareoh",
 		"frankentrueno", "multiojos", "upchuck", "ditto", "muygrande", "articguana", "spitter"
 		
       ],
@@ -240,7 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
         "ultrat": "ULTRA T",
         "materiagris": "MATERIA GRIS",
 		"cannonbolt": "CANNONBOLT",
-		"silvestre": "SILVESTRE",
+		"wildvine": "WILDVINE",
 		"blitzwolfer": "BLITZWOLFER",
 		"snareoh": "SNARE-OH",
 		"frankentrueno": "FRANKENTRUENO",
@@ -413,8 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== DEMÁS GALERÍAS (con tus rutas reales) ====================
   const galleries = {
     comics: {
-      images: ['portada1.png','portada2.png','portada3.png','portada4.png','portada5.png','portada6.png','portada7.png'], 
-      names: {'portada1.png':'CÓMIC 1','portada2.png':'CÓMIC 2','portada3.png':'CÓMIC 3','portada4.png':'CÓMIC 4','portada5.png':'CÓMIC 5','portada6.png':'CÓMIC 6','portada7.png':'CÓMIC 7'}
+      images: ['portada1.jpg','portada2.jpg','portada3.jpg','portada4.jpg','portada5.jpg','portada6.jpg','portada7.jpg'], 
+      names: {'portada1.jpg':'CÓMIC 1','portada2.jpg':'CÓMIC 2','portada3.jpg':'CÓMIC 3','portada4.jpg':'CÓMIC 4','portada5.jpg':'CÓMIC 5','portada6.jpg':'CÓMIC 6','portada7.jpg':'CÓMIC 7'}
     },
     videojuegos: {
       images: ['alienforce','ben10','cosmicdestruction','galacticracing','omniverse','omniverse2','powertrip','protectorofearth','riseofhex','vilgaxattacks'],
