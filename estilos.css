@@ -8,7 +8,7 @@
 /* Página */
 
 	:root {
-	  --header-height: 70px;
+	  --header-height: 100px;
 	  --sidebar-full: 280px;
 	}
 
@@ -244,7 +244,7 @@
 		display:flex;
 		position:fixed;
 		align-items:center;
-		justify-content:center;
+		justify-content:space-between;
 		width:100%;
 		height: var(--header-height);
 		top:0;
@@ -282,7 +282,7 @@
 		border-color:#585959;
 	}
 	
-	.tituloheader, .titulocomic, h1{
+	.tituloheader, .titulocomic{
 		font-family: "Space Comics", sans-serif;
 		font-size: clamp(1rem, 3.6vw, 1.9rem);
 		background: linear-gradient(90deg, #f0e400, #b9fc00, #5ee80e, #28a859, #237a45);
@@ -291,7 +291,8 @@
 		-webkit-text-fill-color: transparent;
 		text-align: center;
 		letter-spacing: 1.2px;
-		line-height: 1.2;
+		margin:auto;
+		line-height: 45px;
 		white-space: normal !important; 
 		word-break: keep-all;
 		hyphens: auto;
@@ -506,6 +507,26 @@
 	}
 	
 /* Main */
+
+	h1{
+		font-family: "Space Comics", sans-serif;
+		font-size: clamp(1rem, 3.6vw, 1.9rem);
+		background: linear-gradient(90deg, #f0e400, #b9fc00, #5ee80e, #28a859, #237a45);
+		-webkit-background-clip: text;
+		background-clip: text;
+		-webkit-text-fill-color: transparent;
+		text-align: center;
+		letter-spacing: 1.2px;
+		line-height: 25px;
+		white-space: normal !important; 
+		word-break: keep-all;
+		hyphens: auto;
+		padding: 8px 12px;
+		max-width: 82vw;
+		transition: all 0.4s ease;
+		text-shadow: 0 0 15px rgba(23, 252, 3, 0.4);
+	}
+
 
 	.oscurecido{
 		position:fixed;
@@ -2433,14 +2454,6 @@
 	}
 	
 	
-	
-	
-
-	.aliens{
-		
-	}
-	
-	
 
 /* Omnitrix Recalibrado */
 /* Ultimatrix */
@@ -2459,9 +2472,10 @@
 		}
 		
 		h1{
+			width:100%;
 			height:auto;
 			max-width:none !important;
-			line-height:50px;
+			line-height:75px;
 		}
 		
 		.tituloheader{
@@ -2780,11 +2794,11 @@
 				left: 50%; 
 				transform: translateX(-50%); 
 				padding: 8px 16px; 
-				font-size: 14px;
+				font-size: 30px;
 			}
 
 			#backBtn ion-icon {
-				font-size: 20px; 
+				font-size: 40px; 
 			}
 
 			.pages-container {
@@ -2868,7 +2882,7 @@
 			
 			.sliderpjs{
 				width:95%;
-				padding-bottom:230px;
+				padding-bottom:280px;
 			}
 			
 			.slider-titulo{
@@ -2887,8 +2901,8 @@
 				max-height:80vh;
 			}
 			
-			.personajes-titulo h2{
-				line-height:50px;
+			.personajes-titulo{
+				line-height:75px;
 			}
 			
 			.caption{
