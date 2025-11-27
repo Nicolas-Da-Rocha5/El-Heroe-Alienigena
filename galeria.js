@@ -413,8 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== DEMÁS GALERÍAS (con tus rutas reales) ====================
   const galleries = {
     comics: {
-      images: ['portada1.jpg','portada2.jpg','portada3.jpg','portada4.jpg','portada5.jpg','portada6.jpg','portada7.jpg'], 
-      names: {'portada1.jpg':'CÓMIC 1','portada2.jpg':'CÓMIC 2','portada3.jpg':'CÓMIC 3','portada4.jpg':'CÓMIC 4','portada5.jpg':'CÓMIC 5','portada6.jpg':'CÓMIC 6','portada7.jpg':'CÓMIC 7'}
+      images: ['portada1','portada2','portada3','portada4','portada5','portada6','portada7'], 
+      names: {'portada1':'CÓMIC 1','portada2':'CÓMIC 2','portada3':'CÓMIC 3','portada4':'CÓMIC 4','portada5':'CÓMIC 5','portada6':'CÓMIC 6','portada7':'CÓMIC 7'}
     },
     videojuegos: {
       images: ['alienforce','ben10','cosmicdestruction','galacticracing','omniverse','omniverse2','powertrip','protectorofearth','riseofhex','vilgaxattacks'],
