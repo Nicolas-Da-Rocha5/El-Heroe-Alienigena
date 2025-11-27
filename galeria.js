@@ -414,7 +414,7 @@ document.addEventListener('DOMContentLoaded', () => {
     comics: {
     // Ya no usamos un array de nombres sin extensión, usamos la ruta completa
     images: [
-      'imagenes/comics/portada1.jpg',
+      'imagenes/comics/portada1',
       'imagenes/comics/portada2.jpg',
       'imagenes/comics/portada3.jpg',
       'imagenes/comics/portada4.jpg',
