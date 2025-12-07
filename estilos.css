@@ -517,7 +517,7 @@
 		-webkit-text-fill-color: transparent;
 		text-align: center;
 		letter-spacing: 1.2px;
-		line-height: 25px;
+		line-height: 55px;
 		white-space: normal !important; 
 		word-break: keep-all;
 		hyphens: auto;
@@ -2457,9 +2457,14 @@
 		border-bottom: 2px dotted #ccff14;
 	}
 	
-	
-
 /* Omnitrix Recalibrado */
+
+.spiderman{
+	font-family:"Trebuchet MS",Geneva,sans-serif;
+	text-decoration:none;
+	color:#02fa2c;
+}
+
 /* Ultimatrix */
 /* Omnitrix Definitivo */
 /* Omnitrix (Reboot) */
